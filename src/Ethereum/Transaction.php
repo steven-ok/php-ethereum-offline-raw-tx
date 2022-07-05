@@ -42,7 +42,7 @@ class Transaction {
         ];
     }
 
-    public function getRaw(string $privateKey, int $chainId = 0): string {
+    public function getRaw(string $privateKey, int $chainId = 0, $options = []): string {
         if ($chainId < 0) {
             throw new RuntimeException('ChainID must be positive');
         }
@@ -56,6 +56,10 @@ class Transaction {
         }
 
         $this->sign($privateKey, $chainId);
+
+        if (isset($options['attach_hash'])) {
+            return [$this->serialize(), $this->hash($chainId)];
+        }
 
         return $this->serialize();
     }
