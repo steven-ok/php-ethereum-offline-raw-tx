@@ -42,7 +42,7 @@ class Transaction {
         ];
     }
 
-    public function getRaw(string $privateKey, int $chainId = 0, $options = []): string {
+    public function getRaw(string $privateKey, int $chainId = 0, $options = []) {
         if ($chainId < 0) {
             throw new RuntimeException('ChainID must be positive');
         }
